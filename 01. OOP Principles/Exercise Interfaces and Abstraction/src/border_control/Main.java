@@ -20,7 +20,7 @@ public class Main {
         while (true) {
             String[] input = reader.readLine().split("\\s+");
 
-            if (input.length <= 1 && !input[0].equalsIgnoreCase("end")) {
+            if ((input.length == 1 && !input[0].equalsIgnoreCase("end")) || input.length == 0) {
                 System.out.println("Invalid Input! Try again...");
             } else if (input[0].equalsIgnoreCase("end")) {
                 break;
