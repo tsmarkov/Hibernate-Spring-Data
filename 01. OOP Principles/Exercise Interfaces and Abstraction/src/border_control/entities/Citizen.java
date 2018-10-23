@@ -1,6 +1,6 @@
 package border_control.entities;
 
-public class Citizen implements person.Identifiable {
+public class Citizen implements Identifiable {
 
     private String name;
     private int age;

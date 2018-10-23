@@ -1,8 +1,8 @@
 package border_control;
 
 import border_control.entities.Citizen;
+import border_control.entities.Identifiable;
 import border_control.entities.Robot;
-import person.Identifiable;
 
 import java.io.BufferedReader;
 import java.io.IOException;

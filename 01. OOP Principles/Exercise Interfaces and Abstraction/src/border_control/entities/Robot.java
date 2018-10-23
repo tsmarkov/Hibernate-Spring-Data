@@ -1,6 +1,6 @@
 package border_control.entities;
 
-public class Robot implements person.Identifiable {
+public class Robot implements Identifiable {
 
     private String model;
     private String id;
