@@ -12,10 +12,10 @@ public class Main {
             queue.add(Integer.parseInt(scanner.nextLine()));
         }
 
-        Drawable circle = new Circle(queue.poll(), queue.poll(), queue.poll());
-        Drawable rect = new Rectangle(queue.poll(), queue.poll());
-
-        circle.draw();
-        rect.draw();
+//      Drawable circle = new Circle(queue.poll(), queue.poll(), queue.poll());
+//      Drawable rect = new Rectangle(queue.poll(), queue.poll());
+//
+//      circle.draw();
+//      rect.draw();
     }
 }

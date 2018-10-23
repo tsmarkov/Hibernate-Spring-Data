@@ -3,7 +3,7 @@ package ShapesDrawing;
 public class Circle implements Drawable {
     private double radius;
 
-    public Circle(double radius) {
+    public Circle() {
         this.radius = radius;
     }
 
