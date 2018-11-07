@@ -1,14 +1,16 @@
 package orm;
 
-public interface DbContext<Е> {
+import java.sql.SQLException;
 
-    boolean persist(Е entity);
+public interface DbContext<T> {
 
-    Iterable<Е> find(Class<Е> table);
+    boolean persist(T entity);
 
-    Iterable<Е> find(Class<Е> table, String where);
+    Iterable<T> find(Class<T> table) throws SQLException;
 
-    Е findFirst(Class<Е> table);
+    Iterable<T> find(Class<T> table, String where);
 
-    Е findFirst(Class<Е> table, String where);
+    T findFirst(Class<T> table);
+
+    T findFirst(Class<T> table, String where);
 }

@@ -1,7 +1,10 @@
 package entities;
 
+import anotations.Entity;
+
 import java.util.Date;
 
+@Entity(name = "users")
 public class User {
     private int id;
     private String name;
@@ -44,5 +47,17 @@ public class User {
 
     private void setRegistrationDate(Date registrationDate) {
         this.registrationDate = registrationDate;
+    }
+
+    @Override
+    public String toString() {
+        return
+                String.format("Name: %s        " +
+                                "Age: %d        " +
+                                "Date: %s    ",
+                        this.name,
+                        this.age,
+                        this.registrationDate
+                );
     }
 }

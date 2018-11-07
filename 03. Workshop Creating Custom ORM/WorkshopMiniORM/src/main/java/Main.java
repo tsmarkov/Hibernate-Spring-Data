@@ -10,17 +10,22 @@ import orm.DbContext;
 import orm.EntityManager;
 
 public class Main {
+    private static final String DEFAULT_USERNAME = "root";
+    private static final String DEFAULT_DB_NAME = "simple_orm";
+
     public static void main(String[] args) throws SQLException, IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-        System.out.print("Enter username: ");
+        System.out.print("Enter username (default: \"root\"): ");
         String username = reader.readLine();
+        username = username.isEmpty() ? DEFAULT_USERNAME : username;
 
-        System.out.print("Enter password: ");
+        System.out.print("Enter password (default: empty string): ");
         String password = reader.readLine();
 
-        System.out.print("Enter database name: ");
+        System.out.print("Enter database name (default: \"simple_orm\"): ");
         String databaseName = reader.readLine();
+        databaseName = databaseName.isEmpty() ? DEFAULT_DB_NAME : databaseName;
 
         Connector.createConnection(username, password, databaseName);
         Connection connection = Connector.getConnection();
@@ -41,6 +46,10 @@ public class Main {
             );
         }*/
 
-        DbContext<User> usersDbContext = new EntityManager<>(connection);
+        DbContext<User> usersDbContext =
+                new EntityManager<>(connection, User.class);
+
+        var let = usersDbContext.find(User.class);
+        let.forEach(System.out::println);
     }
 }
