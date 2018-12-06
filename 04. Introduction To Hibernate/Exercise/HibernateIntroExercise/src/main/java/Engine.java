@@ -1,3 +1,4 @@
+import entities.Address;
 import entities.Employee;
 import entities.Town;
 
@@ -116,7 +117,70 @@ public class Engine implements Runnable {
      * 6.Adding a New Address and Updating Employee
      */
     private void addNewAddressAndUpdateEmployee() {
-        // TODO: Implement
+        Scanner scanner = new Scanner(System.in);
+        String name = scanner.nextLine();
+
+        entityManager.getTransaction().begin();
+
+        Town town = entityManager
+                .createQuery(
+                        "FROM Town t WHERE t.name = 'Sofia'",
+                        Town.class
+                ).getSingleResult();
+
+        Address newAddress = new Address();
+        newAddress.setText("Vitoshka 15");
+        newAddress.setTown(town);
+        entityManager.persist(newAddress);
+
+        Employee employee = entityManager
+                .createQuery(
+                        "FROM Employee e WHERE e.lastName = :name",
+                        Employee.class
+                ).setParameter("name", name)
+                .getSingleResult();
+
+        entityManager.detach(employee.getAddress());
+        employee.setAddress(newAddress);
+        entityManager.merge(employee);
+
+        entityManager.getTransaction().commit();
+    }
+
+    /**
+     * 7.Addresses with Employee Count
+     */
+    private void addressesWithEmployeeCount() {
+        List<Object[]> res = entityManager
+                .createQuery(
+                        "SELECT a.text, t.name, a.employees.size FROM Address a " +
+                                "JOIN Town t ON a.town.id = t.id " +
+                                "ORDER BY a.employees.size DESC, a.town.id ASC",
+                        Object[].class
+                ).setMaxResults(10)
+                .getResultList();
+
+        for (Object[] re : res) {
+            System.out.println(re[0] + " " + re[1] + " " + re[2]);
+        }
+    }
+
+
+    /**
+     * 8.Get Employee with Project
+     */
+    private void getEmployeeWithProject() {
+        Scanner scanner = new Scanner(System.in);
+        int id = Integer.parseInt(scanner.nextLine());
+
+        var e = entityManager
+                .createQuery(
+                        "FROM Employee e JOIN Project p WHERE e.id = :id"
+                )
+                .setParameter("id", id)
+                .getResultList();
+
+        System.out.println(e);
     }
 
     // TODO: Write the rest of the exercises
@@ -134,5 +198,14 @@ public class Engine implements Runnable {
 
         // 5
         //this.employeesFromDepartment();
+
+        // 6
+        //this.addNewAddressAndUpdateEmployee();
+
+        // 7
+        //this.addressesWithEmployeeCount();
+
+        // 8
+        this.getEmployeeWithProject();
     }
 }
